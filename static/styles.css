@@ -85,6 +85,22 @@ form input[type="button"] {
   margin: 0;
   vertical-align: top;
 }
+.checksum {
+  border-color: #999999;
+}
+.first {
+  border-color: #718c00;
+}
+.second {
+  border-color: #4271ae;
+}
+.third {
+  border-color: #c82829;
+}
+.background {
+  border-width: 0 !important;
+  color: #999 !important;
+}
 #explanation {
   font-size: 22pt;
   margin-bottom: 0;
@@ -96,22 +112,6 @@ form input[type="button"] {
   border-radius: 0 0 4px 4px;
   padding: 4px 4px 0 4px;
   margin: 0 0.25em;
-}
-#explanation .checksum {
-  border-color: #999999;
-}
-#explanation .first {
-  border-color: #718c00;
-}
-#explanation .second {
-  border-color: #4271ae;
-}
-#explanation .third {
-  border-color: #c82829;
-}
-#explanation .background {
-  border-width: 0 !important;
-  color: #999 !important;
 }
 h2 span {
   border: 0;
