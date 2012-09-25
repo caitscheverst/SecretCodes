@@ -49,4 +49,4 @@ app.get '/query/:query', (req, res) ->
     return
 
 # run, you fools
-app.listen(2345)
+app.listen(process.env.PORT || 2345)
