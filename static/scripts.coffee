@@ -104,11 +104,15 @@ getResults = (query) ->
 # update the page when clicking the update the page button
 $('#submit').click (e) ->
     query = $('#code').val()
+    query = query.replace(/^\s+|\s+$/g, '')
 
-    # push a new history state with the query as data.    
-    # the backslash removes any forward slashes added by any previous queries
-    history.pushState { query: query }, "", '\\' + query
-    getResults(query)
+    # don't update the page when the user hasn't typed anything
+    if query != ""
+
+        # push a new history state with the query as data.    
+        # the backslash removes any forward slashes added by any previous queries
+        history.pushState { query: query }, "", '\\' + query
+        getResults(query)
 
 # when clicking back, replace the results with those from an older query
 window.onpopstate = (e) ->

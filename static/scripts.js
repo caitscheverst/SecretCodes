@@ -75,10 +75,13 @@
   $('#submit').click(function(e) {
     var query;
     query = $('#code').val();
-    history.pushState({
-      query: query
-    }, "", '\\' + query);
-    return getResults(query);
+    query = query.replace(/^\s+|\s+$/g, '');
+    if (query !== "") {
+      history.pushState({
+        query: query
+      }, "", '\\' + query);
+      return getResults(query);
+    }
   });
 
   window.onpopstate = function(e) {
