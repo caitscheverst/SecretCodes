@@ -17,7 +17,7 @@ class MeyersBriggs
     ]
         
     @attempt: (string) ->
-        re = /([EI])([SN])([TF])([JP])/
+        re = /^([EI])([SN])([TF])([JP])$/
         if (matches = re.exec(string))
             ["success", new MeyersBriggs(matches[1], matches[2], matches[3], matches[4])]
         else

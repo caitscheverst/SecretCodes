@@ -12,7 +12,7 @@ class UPC
     ]
     
     @attempt: (string) ->
-        re = /([0-9])([0-9]{10})([0-9])/
+        re = /^([0-9])([0-9]{10})([0-9])$/
         if (matches = re.exec(string))
             ["success", new UPC(matches[1], matches[2], matches[3])]
         else

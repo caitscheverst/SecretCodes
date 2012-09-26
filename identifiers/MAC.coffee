@@ -14,7 +14,7 @@ class MAC
         ]
         
     @attempt: (string) ->
-        re = /([0-9A-Fa-f]{2})(?::([0-9A-Fa-f]{2})){5}/
+        re = /^([0-9A-Fa-f]{2})(?::([0-9A-Fa-f]{2})){5}$/
         if (matches = re.exec(string))
             ["success", new MAC(string.split(':'))]
         else

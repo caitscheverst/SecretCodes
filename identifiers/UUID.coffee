@@ -18,7 +18,7 @@ class UUID
     ]
     
     @attempt: (string) ->
-        re = /([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-)([0-9A-Fa-f])([0-9A-Fa-f]{3}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})/
+        re = /^([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-)([0-9A-Fa-f])([0-9A-Fa-f]{3}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$/
         if (matches = re.exec(string))
             ["success", new UUID(matches[1], matches[2], matches[3])]
         else

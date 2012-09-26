@@ -16,7 +16,7 @@ class ISBN
     ]
     
     @attempt: (string) ->
-        re = /([0-9]{3})-([0-9]{2})-([0-9]{4})([0-9]{3})([0-9])/
+        re = /^([0-9]{3})-([0-9]{2})-([0-9]{4})([0-9]{3})([0-9])$/
         if (matches = re.exec(string))
             ["success", new ISBN(matches[1], matches[2], matches[3], matches[4], matches[5])]
         else
