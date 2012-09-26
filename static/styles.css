@@ -3,6 +3,7 @@ body {
   color: #333;
   width: 700px;
   margin: 0 auto;
+  background-image: url(brillant.png);
 }
 footer {
   position: absolute;
@@ -23,12 +24,11 @@ h1 {
 }
 h2, h3 {
   font-weight: normal;
-  background-color: #fff;
   padding: 4px;
   padding-left: 8px;
   border-bottom: 2px solid #ccc;
 }
-a:link, a:visited {
+a, a:visited {
   color: #666;
   text-decoration: none;
 }
