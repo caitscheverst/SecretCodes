@@ -55,6 +55,7 @@ app.get /^\/(.+)$/, (req, res) ->
     html = fs.readFileSync('static/index.html', 'utf8')
     html = html.replace '<div id="results"></div>', '<div id="results">' + result + '</div>'  # insert the results into the div
     html = html.replace 'value=""', 'value="' + req.params[0] + '"'  # insert the query into the text input box
+    html = html.replace '<title>', '<title>' + req.params[0] + ' - '  # insert the query into the text input box
     res.end(html)
 
 # getting the index page just gets the home page.

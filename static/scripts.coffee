@@ -84,6 +84,7 @@ $('#random').click (e) ->
 
 # function to fetch html-formatted results via ajax
 getResults = (query) ->
+    document.title = "#{query} - Secret Codes"
     $.ajax
         url: "/query/" + query,
         cache: false,

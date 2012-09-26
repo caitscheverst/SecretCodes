@@ -49,6 +49,7 @@
   });
 
   getResults = function(query) {
+    document.title = "" + query + " - Secret Codes";
     return $.ajax({
       url: "/query/" + query,
       cache: false,
