@@ -96,7 +96,10 @@ getResults = (query) ->
 # update the page when clicking the update the page button
 $('#submit').click (e) ->
     query = $('#code').val()
-    history.pushState { query: query }, "", query
+
+    # push a new history state with the query as data.    
+    # the backslash removes any forward slashes added by any previous queries
+    history.pushState { query: query }, "", '\\' + query
     getResults(query)
     $('#results').html("Tis loadin'")
 

@@ -38,8 +38,8 @@ getResultHTML = (q) ->
 
 # getting a query (with a query attached to it) returns the html results of
 # that query.
-app.get '/query/:query', (req, res) ->
-    q = req.params.query
+app.get /^\/query\/(.+)$/, (req, res) ->
+    q = req.params[0]
     console.log q if logging
 
     result = getResultHTML(q)
@@ -48,13 +48,13 @@ app.get '/query/:query', (req, res) ->
 
 # getting the index page with a query gets the home page with results already
 # inserted into it.
-app.get '/:query', (req, res) ->
+app.get /^\/(.+)$/, (req, res) ->
     res.writeHead(200, 'Content-Type': 'text/html')
 
-    result = getResultHTML(req.params.query)
+    result = getResultHTML(req.params[0])
     html = fs.readFileSync('static/index.html', 'utf8')
     html = html.replace '<div id="results"></div>', '<div id="results">' + result + '</div>'  # insert the results into the div
-    html = html.replace 'value=""', 'value="' + req.params.query + '"'  # insert the query into the text input box
+    html = html.replace 'value=""', 'value="' + req.params[0] + '"'  # insert the query into the text input box
     res.end(html)
 
 # getting the index page just gets the home page.

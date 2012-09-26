@@ -67,7 +67,7 @@
     query = $('#code').val();
     history.pushState({
       query: query
-    }, "", query);
+    }, "", '\\' + query);
     getResults(query);
     return $('#results').html("Tis loadin'");
   });
