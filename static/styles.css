@@ -73,6 +73,12 @@ form input[type="text"] {
   vertical-align: top;
   margin-right: -6px;
   width: 370px;
+  outline: none;
+  z-index: 1;
+  position: relative;
+}
+form input[type="text"]:focus {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 5px rgba(33, 33, 33, 0.8);
 }
 form input[type="button"] {
   padding: 4px 14px;
