@@ -95,11 +95,11 @@ getResults = (query) ->
         cache: false,
         success: (data, textStatus, jqXHR) ->
             $('#results').html(data)
-            $('#results').stop().removeClass('loading').show()
+            $('#results').stop().removeClass('loading').css(opacity: 1)
             drawBeziers()
         error: (jqXHR, textStatus, errorThrown) ->
             $('#results').html("Error: #{textStatus} + #{errorThrown}")
-            $('#results').stop().removeClass('loading').show()
+            $('#results').stop().removeClass('loading').css(opacity: 1)
 
 # update the page when clicking the update the page button
 $('#submit').click (e) ->

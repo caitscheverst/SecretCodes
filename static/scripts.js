@@ -58,12 +58,16 @@
       cache: false,
       success: function(data, textStatus, jqXHR) {
         $('#results').html(data);
-        $('#results').stop().removeClass('loading').show();
+        $('#results').stop().removeClass('loading').css({
+          opacity: 1
+        });
         return drawBeziers();
       },
       error: function(jqXHR, textStatus, errorThrown) {
         $('#results').html("Error: " + textStatus + " + " + errorThrown);
-        return $('#results').stop().removeClass('loading').show();
+        return $('#results').stop().removeClass('loading').css({
+          opacity: 1
+        });
       }
     });
   };
