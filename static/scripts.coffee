@@ -82,14 +82,30 @@ arbits = [
 $('#random').click (e) ->
     $('#code').val arbits[Math.floor(Math.random() * arbits.length)]
 
-# update the page when clicking the update the page button
-$('#submit').click (e) ->
+# function to fetch html-formatted results via ajax
+getResults = (query) ->
     $.ajax
-        url: "/query/" + $('#code').val(),
+        url: "/query/" + query,
         cache: false,
         success: (data, textStatus, jqXHR) ->
             $('#results').html(data)
             drawBeziers()
         error: (jqXHR, textStatus, errorThrown) ->
             $('#results').html("Error: #{textStatus} + #{errorThrown}")
+
+# update the page when clicking the update the page button
+$('#submit').click (e) ->
+    query = $('#code').val()
+    history.pushState { query: query }, "", query
+    getResults(query)
     $('#results').html("Tis loadin'")
+
+# when clicking back, replace the results with those from an older query
+window.onpopstate = (e) ->
+    getResults(e.state.query)
+
+# if there's an #explanation tag, then it means that the page has been
+# generated with results already in it. if so, call the function to draw the
+# beziers (they aren't drawn automatically)
+if $('#explanation').length
+    drawBeziers()

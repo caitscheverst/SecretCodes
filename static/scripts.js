@@ -1,5 +1,5 @@
 (function() {
-  var arbits, connect, drawBeziers, worlds;
+  var arbits, connect, drawBeziers, getResults, worlds;
 
   connect = function($top, $bottom, $canvas, colour) {
     var bottom_x, bottom_y, context, sharpness, top_x, top_y;
@@ -48,9 +48,9 @@
     return $('#code').val(arbits[Math.floor(Math.random() * arbits.length)]);
   });
 
-  $('#submit').click(function(e) {
-    $.ajax({
-      url: "/query/" + $('#code').val(),
+  getResults = function(query) {
+    return $.ajax({
+      url: "/query/" + query,
       cache: false,
       success: function(data, textStatus, jqXHR) {
         $('#results').html(data);
@@ -60,7 +60,22 @@
         return $('#results').html("Error: " + textStatus + " + " + errorThrown);
       }
     });
+  };
+
+  $('#submit').click(function(e) {
+    var query;
+    query = $('#code').val();
+    history.pushState({
+      query: query
+    }, "", query);
+    getResults(query);
     return $('#results').html("Tis loadin'");
   });
+
+  window.onpopstate = function(e) {
+    return getResults(e.state.query);
+  };
+
+  if ($('#explanation').length) drawBeziers();
 
 }).call(this);
