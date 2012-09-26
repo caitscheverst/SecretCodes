@@ -88,6 +88,14 @@ form input[type="button"] {
   margin: 0;
   vertical-align: top;
 }
+form input[type="button"]:hover {
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#d2d2d2));
+}
+form input[type="button"]:active {
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dddddd), to(#f4f4f4));
+  padding-top: 5px;
+  padding-bottom: 3px;
+}
 .checksum {
   border-color: #999999;
 }
