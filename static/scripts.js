@@ -50,15 +50,20 @@
 
   getResults = function(query) {
     document.title = "" + query + " - Secret Codes";
+    $('#results').fadeOut(600, function(done) {
+      return $('#results').html("").addClass('loading').fadeIn(800);
+    });
     return $.ajax({
       url: "/query/" + query,
       cache: false,
       success: function(data, textStatus, jqXHR) {
         $('#results').html(data);
+        $('#results').stop().removeClass('loading').show();
         return drawBeziers();
       },
       error: function(jqXHR, textStatus, errorThrown) {
-        return $('#results').html("Error: " + textStatus + " + " + errorThrown);
+        $('#results').html("Error: " + textStatus + " + " + errorThrown);
+        return $('#results').stop().removeClass('loading').show();
       }
     });
   };
@@ -69,12 +74,11 @@
     history.pushState({
       query: query
     }, "", '\\' + query);
-    getResults(query);
-    return $('#results').html("Tis loadin'");
+    return getResults(query);
   });
 
   window.onpopstate = function(e) {
-    return getResults(e.state.query);
+    if (e.state.query != null) return getResults(e.state.query);
   };
 
   if ($('#explanation').length) drawBeziers();

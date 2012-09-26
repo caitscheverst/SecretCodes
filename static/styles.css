@@ -147,6 +147,10 @@ canvas {
   float: right;
   width: 310px;
 }
+.loading {
+  background: url(/throbber.gif) no-repeat center center;
+  min-height: 150px;
+}
 h4 {
   color: #a03232;
   font-size: 36pt;

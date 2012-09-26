@@ -85,14 +85,21 @@ $('#random').click (e) ->
 # function to fetch html-formatted results via ajax
 getResults = (query) ->
     document.title = "#{query} - Secret Codes"
+    
+    # initially, fade the results out. then, change the results to the
+    # throbber background, and use that until the results come in.
+    $('#results').fadeOut 600, (done) ->
+        $('#results').html("").addClass('loading').fadeIn(800)
     $.ajax
         url: "/query/" + query,
         cache: false,
         success: (data, textStatus, jqXHR) ->
             $('#results').html(data)
+            $('#results').stop().removeClass('loading').show()
             drawBeziers()
         error: (jqXHR, textStatus, errorThrown) ->
             $('#results').html("Error: #{textStatus} + #{errorThrown}")
+            $('#results').stop().removeClass('loading').show()
 
 # update the page when clicking the update the page button
 $('#submit').click (e) ->
@@ -102,11 +109,10 @@ $('#submit').click (e) ->
     # the backslash removes any forward slashes added by any previous queries
     history.pushState { query: query }, "", '\\' + query
     getResults(query)
-    $('#results').html("Tis loadin'")
 
 # when clicking back, replace the results with those from an older query
 window.onpopstate = (e) ->
-    getResults(e.state.query)
+    getResults(e.state.query) if e.state.query?
 
 # if there's an #explanation tag, then it means that the page has been
 # generated with results already in it. if so, call the function to draw the
