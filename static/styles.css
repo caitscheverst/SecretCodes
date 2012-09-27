@@ -105,6 +105,9 @@ form input[type="button"]:active {
   padding-top: 5px;
   padding-bottom: 3px;
 }
+#random, #submit {
+  cursor: pointer;
+}
 .checksum {
   border-color: #999999;
 }
