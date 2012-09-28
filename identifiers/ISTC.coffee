@@ -5,7 +5,7 @@ class ISTC
     
     constructor: (@agency, @year, @id, @checksum) ->
     
-    data: () -> [
+    getData: (callback) -> callback [
         { cls: "first", words: @agency, title: "Agency", meaning: "" }
         { cls: "background", words: "-" }
         { cls: "second", words: @year, title: "Year", meaning: "" }

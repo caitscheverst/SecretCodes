@@ -8,7 +8,7 @@ connect = ($top, $bottom, $canvas, colour) ->
     
     # calculate bottom position
     bottom_x = $bottom.offset().left + ($bottom.width() / 2) - $canvas.offset().left + 4
-    bottom_y = ($bottom.offset().top  - $canvas.offset().top)
+    bottom_y = $bottom.offset().top  - $canvas.offset().top
 
     # set up canvas nonsense    
     context = $canvas.get(0).getContext("2d")
@@ -21,7 +21,7 @@ connect = ($top, $bottom, $canvas, colour) ->
     # be relative to the size of the curve itself.
     sharpness = (bottom_y - top_y) / 1.618
     
-    context.moveTo(top_x, top_y)         # start
+    context.moveTo top_x, top_y          # start
     context.bezierCurveTo(
         top_x, top_y + sharpness,        # first bezier point
         bottom_x, bottom_y - sharpness,  # second bezier point
@@ -116,7 +116,7 @@ $('#submit').click (e) ->
 
 # when clicking back, replace the results with those from an older query
 window.onpopstate = (e) ->
-    getResults(e.state.query) if e.state.query?
+    getResults e.state.query if e.state.query?
 
 # if there's an #explanation tag, then it means that the page has been
 # generated with results already in it. if so, call the function to draw the

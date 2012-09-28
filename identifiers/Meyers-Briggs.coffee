@@ -9,7 +9,7 @@ class MeyersBriggs
         @judging    = {T: "Thinking", F: "Feeling"}[@j]
         @lifestyle  = {J: "Judging", P: "Perception"}[@l]
         
-    data: () -> [
+    getData: (callback) -> callback [
         { cls: "first", words: @a, title: "Attitude", meaning: @attitude }
         { cls: "second", words: @p, title: "Perceiving", meaning: @perceiving }
         { cls: "third", words: @j, title: "Judging", meaning: @judging }

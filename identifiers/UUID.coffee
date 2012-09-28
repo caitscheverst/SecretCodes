@@ -11,7 +11,7 @@ class UUID
             when "4" then "Randomly-generated"
             when "5" then "SHA1 Hash"
     
-    data: () -> [
+    getData: (callback) -> callback [
         { cls: "first", words: @before, title: "Data", meaning: "" }
         { cls: "second", words: @during, title: "Variant", meaning: "<tt>#{@during}</tt> = #{@which}" }
         { cls: "third", words: @after, title: "Data", meaning: "" }
