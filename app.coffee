@@ -22,23 +22,37 @@ app = express()
 app.use express.static(__dirname + '/static')
 
 # gets a result, and formats it as HTML from the views
-getResultHTML = (q, callback) ->
-    r = null
+getResultHTML = (query, callback) ->
+    result = null
     
+    # loop through every tester until we find one that works.
+    # (todo: support for multiple successes)
     for name, tester of identifiers
-        results = tester.attempt(q) 
-        if results[0] == "success"
-            str = fs.readFileSync('views/main.ejs', 'utf8')
-            r = results[1]
-            break
-
+        [status, data] = tester.attempt(query)
+        
+        # success is currently determined by a string instead of a boolean
+        # to allow for future expansion (half-successes)
+        switch status
+            when "success"
+                str = fs.readFileSync('views/main.ejs', 'utf8')
+                result = data
+                break
+            when "failure"
+                continue
+            else
+                console.log "Weird status from #{name}: #{status} (data: #{data})"
     
-    if r != null
-        r.getData (result) ->
-            data = { a_an: r.a_an, name: r.name, longName: r.longName, parts: result }
-            callback(ejs.render(str, data))
+    # if we have a result, then tell the result to format itself.
+    if result?
+        result.getData (data) ->
+            html = ejs.render str,
+                a_an:     result.a_an,
+                name:     result.name,
+                longName: result.longName,
+                parts:    data
+            callback html
 
-    # if all those fail, error out
+    # if all the checks fail, display a "not found" message
     else
         fs.readFile 'views/nope.ejs', 'utf8', (err, str) ->
             html = ejs.render(str, { input: q })
