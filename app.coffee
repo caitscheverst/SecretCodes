@@ -34,7 +34,6 @@ getResultHTML = (query, callback) ->
         # to allow for future expansion (half-successes)
         switch status
             when "success"
-                str = fs.readFileSync('views/main.ejs', 'utf8')
                 result = data
                 break
             when "failure"
@@ -44,13 +43,14 @@ getResultHTML = (query, callback) ->
     
     # if we have a result, then tell the result to format itself.
     if result?
-        result.getData (data) ->
-            html = ejs.render str,
-                a_an:     result.a_an,
-                name:     result.name,
-                longName: result.longName,
-                parts:    data
-            callback html
+        fs.readFile 'views/main.ejs', 'utf8', (err, str) ->
+            result.getData (data) ->
+                html = ejs.render str,
+                    a_an:     result.a_an,
+                    name:     result.name,
+                    longName: result.longName,
+                    parts:    data
+                callback html
 
     # if all the checks fail, display a "not found" message
     else
@@ -74,11 +74,11 @@ app.get /^\/(.+)$/, (req, res) ->
     res.writeHead(200, 'Content-Type': 'text/html')
 
     getResultHTML req.params[0], (result) ->
-        html = fs.readFileSync('static/index.html', 'utf8')
-        html = html.replace '<div id="results"></div>', '<div id="results">' + result + '</div>'  # insert the results into the div
-        html = html.replace 'value=""', 'value="' + req.params[0] + '"'  # insert the query into the text input box
-        html = html.replace '<title>', '<title>' + req.params[0] + ' - '  # insert the query into the text input box
-        res.end(html)
+        fs.readFile 'static/index.html', 'utf8', (err, html) ->
+            html = html.replace '<div id="results"></div>', '<div id="results">' + result + '</div>'  # insert the results into the div
+            html = html.replace 'value=""', 'value="' + req.params[0] + '"'  # insert the query into the text input box
+            html = html.replace '<title>', '<title>' + req.params[0] + ' - '  # insert the query into the text input box
+            res.end(html)
 
 # getting the index page just gets the home page.
 app.get '/', express.static(__dirname + '/static/index.html')
