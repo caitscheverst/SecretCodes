@@ -10,6 +10,8 @@ express = require 'express'
 logging = true
 
 # loop through the identifiers folder, loading classes in turn.
+# this is done synchronously, as there's no use doing it asynchronously when
+# the web server hasn't been set up yet.
 identifiers = {}
 for file in fs.readdirSync 'identifiers'
     lib = require "./identifiers/#{file}"
