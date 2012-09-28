@@ -5,7 +5,7 @@ class ISBN
     
     constructor: (@gs1, @group, @publisher, @item, @checksum) ->
     
-    data: () -> [
+    getData: (callback) -> callback [
         { cls: "first", words: @gs1, title: "GS1 Prefix", meaning: "" }
         { cls: "background", words: "-" }
         { cls: "second", words: @group, title: "Group ID", meaning: "" }

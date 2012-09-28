@@ -5,7 +5,7 @@ class UPC
     
     constructor: (@code, @item, @checksum) ->
     
-    data: () -> [
+    getData: (callback) -> callback [
         { cls: "first", words: @code, title: "Item Group", meaning: "" }
         { cls: "data", words: @item, title: "Item Number", meaning: "" }
         { cls: "checksum", words: @checksum, title: "Checksum", meaning: "" }

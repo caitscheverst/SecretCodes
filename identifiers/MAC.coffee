@@ -5,9 +5,9 @@ class MAC
     
     constructor: (@o) ->
     
-    data: () ->
+    getData: (callback) ->
         prefix = [@o[0], @o[1], @o[2]].join(':')
-        [
+        callback [
             { cls: "first", words: prefix, title: "Vendor", meaning: "The first three octets identify the hardware vendor.<br /><tt>#{prefix}</tt> = Cisco" }
             { cls: "background", words: ":" }
             { cls: "data", words: [@o[3], @o[4], @o[5]].join(':'), title: "Identifier", meaning: "The last three octets are machine-specific." }
