@@ -11,7 +11,7 @@ logging = true
 
 # loop through the identifiers folder, loading classes in turn.
 identifiers = {}
-for file in fs.readdirSync('identifiers')
+for file in fs.readdirSync 'identifiers'
     lib = require "./identifiers/#{file}"
     for name, tester of lib
         console.log "Loaded #{name} (#{tester.name}) from #{file}"
@@ -28,7 +28,7 @@ getResultHTML = (query, callback) ->
     # loop through every tester until we find one that works.
     # (todo: support for multiple successes)
     for name, tester of identifiers
-        [status, data] = tester.attempt(query)
+        [status, data] = tester.attempt query
         
         # success is currently determined by a string instead of a boolean
         # to allow for future expansion (half-successes)
@@ -55,30 +55,30 @@ getResultHTML = (query, callback) ->
     # if all the checks fail, display a "not found" message
     else
         fs.readFile 'views/nope.ejs', 'utf8', (err, str) ->
-            html = ejs.render(str, { input: q })
-            callback(html)
+            html = ejs.render str, input: query
+            callback html
 
 # getting a query (with a query attached to it) returns the html results of
 # that query.
 app.get /^\/query\/(.+)$/, (req, res) ->
-    q = req.params[0]
-    console.log q if logging
+    query = req.params[0]
+    console.log query if logging
 
-    getResultHTML q, (result) ->
-        res.writeHead(200, 'Content-Type': 'text/html')
-        res.end(result)
+    getResultHTML query, (result) ->
+        res.writeHead 200, 'Content-Type': 'text/html'
+        res.end result
 
 # getting the index page with a query gets the home page with results already
 # inserted into it.
 app.get /^\/(.+)$/, (req, res) ->
-    res.writeHead(200, 'Content-Type': 'text/html')
+    res.writeHead 200, 'Content-Type': 'text/html'
 
     getResultHTML req.params[0], (result) ->
         fs.readFile 'static/index.html', 'utf8', (err, html) ->
             html = html.replace '<div id="results"></div>', '<div id="results">' + result + '</div>'  # insert the results into the div
             html = html.replace 'value=""', 'value="' + req.params[0] + '"'  # insert the query into the text input box
             html = html.replace '<title>', '<title>' + req.params[0] + ' - '  # insert the query into the text input box
-            res.end(html)
+            res.end html
 
 # getting the index page just gets the home page.
 app.get '/', express.static(__dirname + '/static/index.html')
