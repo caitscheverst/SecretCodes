@@ -16,7 +16,7 @@ class UPC
         if (matches = re.exec(string))
             ["success", new UPC(matches[1], matches[2], matches[3])]
         else
-            ["failure", null]
+            ["failure", "Didn't match regexp"]
             
 module.exports =
     UPC: UPC

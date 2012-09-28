@@ -18,7 +18,7 @@ class MAC
         if (matches = re.exec(string))
             ["success", new MAC(string.split(':'))]
         else
-            ["failure", null]
+            ["failure", "Didn't match regexp"]
 
 module.exports =
     MAC: MAC

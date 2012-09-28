@@ -21,7 +21,7 @@ class MeyersBriggs
         if (matches = re.exec(string))
             ["success", new MeyersBriggs(matches[1], matches[2], matches[3], matches[4])]
         else
-            ["failure", null]
+            ["failure", "Didn't match regexp"]
 
 module.exports =
     MeyersBriggs: MeyersBriggs

@@ -22,7 +22,7 @@ class UUID
         if (matches = re.exec(string))
             ["success", new UUID(matches[1], matches[2], matches[3])]
         else
-            ["failure", null]
+            ["failure", "Didn't match regexp"]
 
 module.exports =
     UUID: UUID
