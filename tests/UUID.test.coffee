@@ -1,4 +1,3 @@
-mocha = require 'mocha'
 assert = require 'assert'
 lib = require '../identifiers/UUID.coffee'
             

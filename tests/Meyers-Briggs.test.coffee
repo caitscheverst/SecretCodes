@@ -1,4 +1,3 @@
-vows = require 'vows'
 assert = require 'assert'
 
 lib = require '../identifiers/Meyers-Briggs.coffee'
