@@ -16,7 +16,12 @@ class ISTC
     ]
 
     @attempt: (string) ->
-        re = /^([0-9A-Fa-f]{3})-([0-9]{4})-([0-9A-Fa-f]{8})-([0-9A-Fa-f])$/
+        re = /// ^
+            ( [0-9A-Fa-f]{3} ) -   # Agency
+            ( [0-9]{4} ) -         # Year (not hex!) 
+            ( [0-9A-Fa-f]{8} ) -   # Work ID
+            ( [0-9A-Fa-f] )        # Checksum digit
+        $ ///
         if (matches = re.exec(string))
             ["success", new ISTC(matches[1], matches[2], matches[3], matches[4])]
         else

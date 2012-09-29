@@ -18,7 +18,18 @@ class UUID
     ]
     
     @attempt: (string) ->
-        re = /^([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-)([0-9A-Fa-f])([0-9A-Fa-f]{3}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})$/
+        re = /// ^
+            (                      # The first two groups are just data
+                [0-9A-Fa-f]{8} -    # One of eight
+                [0-9A-Fa-f]{4} -    # One of four
+            )
+            ( [0-9A-Fa-f] )        # The first character of group 3 specifies the creation procedure
+            (                      # The other groups are juts data
+                [0-9A-Fa-f]{3} -    # Group of four, minus one for the other character
+                [0-9A-Fa-f]{4} -    # Group of four
+                [0-9A-Fa-f]{12}     # One last group of twelve
+            )
+        $ ///
         if (matches = re.exec(string))
             ["success", new UUID(matches[1], matches[2], matches[3])]
         else

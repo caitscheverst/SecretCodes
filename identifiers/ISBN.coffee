@@ -16,7 +16,13 @@ class ISBN
     ]
     
     @attempt: (string) ->
-        re = /^([0-9]{3})-([0-9]{2})-([0-9]{4})([0-9]{3})([0-9])$/
+        re = /// ^
+            ( [0-9]{3} ) -   # GS1 Prefix
+            ( [0-9]{2} ) -   # Group ID
+            ( [0-9]{4} )     # Publisher ID
+            ( [0-9]{3} )     # Book ID
+            ( [0-9] )        # Checksum digit
+        $ ///
         if (matches = re.exec(string))
             ["success", new ISBN(matches[1], matches[2], matches[3], matches[4], matches[5])]
         else

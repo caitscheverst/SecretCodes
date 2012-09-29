@@ -17,7 +17,12 @@ class MeyersBriggs
     ]
         
     @attempt: (string) ->
-        re = /^([EI])([SN])([TF])([JP])$/
+        re = /// ^
+            ( [EI] )   # Attitude
+            ( [SN] )   # Perceiving
+            ( [TF] )   # Judging
+            ( [JP] )   # Lifestyle
+        $ ///
         if (matches = re.exec(string))
             ["success", new MeyersBriggs(matches[1], matches[2], matches[3], matches[4])]
         else
