@@ -14,6 +14,7 @@ describe "MAC", ->
             assert.equal lib.MAC.attempt('00:11:22:33:44:55')[1].getVendor (vendor) ->
                 assert.equal vendor, "CIMSYS Inc"
                 done()
+    
     describe "Invalid identifiers", ->
         it "should fail when given one too short", ->
             assert.deepEqual lib.MAC.attempt('00:11:22:33:44'), ['failure', "Didn't match regexp"]
