@@ -7,12 +7,14 @@ It has a front-end web application made with node and express.
 
 [**Try it!** secretcodes.herokuapp.com](http://secretcodes.herokuapp.com)
 
+
 Prerequisites
 -------------
 
 - [node.js](http://nodejs.org)
 - [coffeescript](http://coffeescript.org)
 - [express.js](http://expressjs.com) 3.x.x
+- [mocha](http://visionmedia.github.com/mocha/) for testing
 
 
 Running
