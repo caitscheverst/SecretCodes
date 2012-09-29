@@ -45,9 +45,9 @@ getResultHTML = (query, callback) ->
     
     # if we have a result, then tell the result to format itself.
     if result?
-        fs.readFile 'views/main.ejs', 'utf8', (err, str) ->
+        fs.readFile 'views/main.ejs', 'utf8', (err, template) ->
             result.getData (data) ->
-                html = ejs.render str,
+                html = ejs.render template,
                     a_an:     result.a_an,
                     name:     result.name,
                     longName: result.longName,
@@ -56,8 +56,8 @@ getResultHTML = (query, callback) ->
 
     # if all the checks fail, display a "not found" message
     else
-        fs.readFile 'views/nope.ejs', 'utf8', (err, str) ->
-            html = ejs.render str, input: query
+        fs.readFile 'views/nope.ejs', 'utf8', (err, template) ->
+            html = ejs.render template, input: query
             callback html
 
 # getting a query (with a query attached to it) returns the html results of
@@ -76,14 +76,22 @@ app.get /^\/(.+)$/, (req, res) ->
     res.writeHead 200, 'Content-Type': 'text/html'
 
     getResultHTML req.params[0], (result) ->
-        fs.readFile 'static/index.html', 'utf8', (err, html) ->
-            html = html.replace '<div id="results"></div>', '<div id="results">' + result + '</div>'  # insert the results into the div
-            html = html.replace 'value=""', 'value="' + req.params[0] + '"'  # insert the query into the text input box
-            html = html.replace '<title>', '<title>' + req.params[0] + ' - '  # insert the query into the text input box
+        fs.readFile 'views/index.ejs', 'utf8', (err, template) ->
+            html = ejs.render template,
+                title:   "#{req.params[0]} - Secret Codes",
+                query:   req.params[0],
+                results: result
             res.end html
 
 # getting the index page just gets the home page.
-app.get '/', express.static(__dirname + '/static/index.html')
+app.get '/', (req, res) ->
+    getResultHTML req.params[0], (result) ->
+        fs.readFile 'views/index.ejs', 'utf8', (err, template) ->
+            html = ejs.render template,
+                title:   "Secret Codes",
+                query:   '',
+                results: ''
+            res.end html
 
 # run, you fools
 app.listen(process.env.PORT || 2345)
