@@ -20,7 +20,11 @@ Prerequisites
 Running
 -------
 
-You can use Foreman to run a local instance, or just call `coffee app.coffee`, which will run it on port 2345.
+Run
+
+    npm install
+
+Then you can use Foreman to run a local instance, or just call `coffee app.coffee`, which will run it on port 2345.
 
 
 Contributing
